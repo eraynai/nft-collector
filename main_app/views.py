@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from main_app.models import Nft
 
 
 # class Nft:
@@ -28,5 +29,7 @@ def home(request):
     return HttpResponse('test')
 
 
-def index(request):
+def nfts_index(request):
+    nfts = Nft.objects.all()
+    print(nfts)
     return render(request, 'nfts/index.html', {'nfts': nfts})

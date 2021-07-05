@@ -5,9 +5,10 @@
 {% for nft in nfts %}
 <div class="card">
 	<div class="card-content">
-		<span class="card-title">{{ nft.name| title }}</span>
-		<p>Description: {{ nft.description }}</p>
-		<p>Price: {{ nft.price }}</p>
+		<span class="card-title">{{nft.name}}</span>
+		<p>Description:{{nft.description}}</p>
+		<p>Price:{{nft.price}}</p>
+		<p>Category:{{nft.category}}</p>
 	</div>
 </div>
 {% endfor %} {% endblock %}
