@@ -2,17 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-class Nft:
-    def __init__(self, name, description, price):
-        self.name = name
-        self.description = description
-        self.price = price
+# class Nft:
+#     def __init__(self, name, description, price):
+#         self.name = name
+#         self.description = description
+#         self.price = price
 
 
-nfts = [
-    Nft('Blue Window', 'A 3D model of a blue window', 1.0),
-    Nft('Green Window', 'A 3D model of a green window', 1.0)
-]
+# nfts = [
+#     Nft('blue Window', 'A 3D model of a blue window', 1.0),
+#     Nft('green Window', 'A 3D model of a green window', 1.0)
+# ]
 # Create your views here.
 
 
