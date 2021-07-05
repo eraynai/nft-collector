@@ -5,7 +5,9 @@
 {% for nft in nfts %}
 <div class="card">
 	<div class="card-content">
-		<span class="card-title">{{nft.name}}</span>
+		<a href="{% url 'detail' nft.id  %}">
+			<span class="card-title">{{nft.name}}</span>
+		</a>
 		<p>Description:{{nft.description}}</p>
 		<p>Price:{{nft.price}}</p>
 		<p>Category:{{nft.category}}</p>

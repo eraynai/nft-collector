@@ -3,20 +3,6 @@ from django.http import HttpResponse
 from main_app.models import Nft
 
 
-# class Nft:
-#     def __init__(self, name, description, price):
-#         self.name = name
-#         self.description = description
-#         self.price = price
-
-
-# nfts = [
-#     Nft('blue Window', 'A 3D model of a blue window', 1.0),
-#     Nft('green Window', 'A 3D model of a green window', 1.0)
-# ]
-# Create your views here.
-
-
 def index(request):
     return HttpResponse('<h1>Hello</h1>')
 
@@ -33,3 +19,8 @@ def nfts_index(request):
     nfts = Nft.objects.all()
     print(nfts)
     return render(request, 'nfts/index.html', {'nfts': nfts})
+
+
+def nfts_detail(request, nft_id):
+    nft = Nft.objects.get(id=nft_id)
+    return render(request, 'nfts/detail.html', {'nft': nft})
