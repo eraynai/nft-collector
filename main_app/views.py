@@ -1,18 +1,16 @@
+from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from main_app.models import Nft
+from django.template.loader import render_to_string
 
 
 def index(request):
     return HttpResponse('<h1>Hello</h1>')
 
 
-def about(request):
-    return render(request, 'about.html')
-
-
 def home(request):
-    return HttpResponse('test')
+    return render(request, 'about.html')
 
 
 def nfts_index(request):
@@ -22,5 +20,9 @@ def nfts_index(request):
 
 
 def nfts_detail(request, nft_id):
-    nft = Nft.objects.get(id=nft_id)
-    return render(request, 'nfts/detail.html', {'nft': nft})
+    try:
+        nft = Nft.objects.get(id=nft_id)
+        return render(request, 'nfts/detail.html', {'nft': nft})
+    except:
+        data_response = render_to_string('404.html')
+        return HttpResponseNotFound(data_response)
