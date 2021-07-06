@@ -26,3 +26,7 @@ def nfts_detail(request, nft_id):
     except:
         data_response = render_to_string('404.html')
         return HttpResponseNotFound(data_response)
+
+
+def nfts_new(request):
+    return render(request, 'nfts/new_form.html')
