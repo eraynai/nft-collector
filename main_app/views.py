@@ -41,3 +41,17 @@ def nfts_delete(request, nft_id):
     nft = Nft.objects.get(id=nft_id)
     nft.delete()
     return redirect('/nfts')
+
+
+def nfts_edit(request, nft_id):
+    nft = Nft.objects.get(id=nft_id)
+    return render(request, 'nfts/edit.html', {'nft': nft})
+
+
+def nfts_update(request, nft_id):
+    nft = Nft.objects.get(id=nft_id)
+    nft.name = request.POST['name']
+    nft.description = request.POST['description']
+    nft.price = request.POST['price']
+    nft.save()
+    return redirect(f'/nfts/{nft.id}')

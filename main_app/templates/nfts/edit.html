@@ -1,15 +1,16 @@
 {% extends 'base.html' %} {% block content %}
 
-<form action="/nfts/{{nft.id}}/submit_update_form">
+<form method="POST" action="/nfts/{{nft.id}}/submit_update_form/">
 	{% csrf_token %} Name:
-	<input name="name" value="{{nft.name}}" placeholder="Eg., Name the NFT" />
+	<input name="name" value="{{nft.name}}" placeholder="Eg., Name of NFT" />
 	Description:
 	<input
 		name="description"
 		value="{{nft.description}}"
 		placeholder="Describe the NFT"
 	/>
-	Price: <input name="price" placeholder="1.0" />
+	Price: <input name="price" value="{{nft.price}}" placeholder="1.0" />
+	<button type="submit">Update</button>
 </form>
 
 {% endblock %}
