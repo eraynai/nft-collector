@@ -20,4 +20,12 @@ class Bids(models.Model):
     nft = models.ForeignKey(Nft, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.bid} by {self.user} on {self.date}'
+        return f'{self.bid} on {self.nft} by {self.user} on {self.date}'
+
+
+class Photos(models.Model):
+    url = models.CharField(max_length=250)
+    nft = models.ForeignKey(Nft, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for nft_id: {self.nft_id} @{self.url}"
