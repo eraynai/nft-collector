@@ -12,6 +12,10 @@
 		</div>
 	</div>
 	<div class="col s6">
+		<form method="POST">
+			{% csrf_token %} {{bidding_form.as_p}}
+			<input type="submit" class="btn" value="Add Bid" />
+		</form>
 		<table class="striped">
 			<thead>
 				<tr>

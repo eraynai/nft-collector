@@ -32,9 +32,10 @@ def nfts_detail(request, nft_id):
     try:
         # get the cat
         nft = Nft.objects.get(id=nft_id)
-        bids = nft.bids_set.all()
-        print('this is bids', bids)
-        return render(request, 'nfts/detail.html', {'nft': nft, 'bids': bids})
+        # bids = nft.bids_set.all()
+        # print('this is bids', bids)
+        bidding_form = BiddingForm()
+        return render(request, 'nfts/detail.html', {'nft': nft, 'bidding_form': bidding_form})
     except:
         data_response = render_to_string('404.html')
         return HttpResponseNotFound(data_response)
