@@ -35,3 +35,9 @@ def nfts_detail(request, nft_id):
 
 def nfts_new(request):
     return render(request, 'nfts/new_form.html')
+
+
+def nfts_delete(request, nft_id):
+    nft = Nft.objects.get(id=nft_id)
+    nft.delete()
+    return redirect('/nfts')
