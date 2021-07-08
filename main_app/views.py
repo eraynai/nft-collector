@@ -4,7 +4,8 @@ from django.http import HttpResponse, Http404
 from django.template.loader import render_to_string
 import uuid
 import boto3
-from . models import Nft, Bids, Photos
+from .models import Nft, Bids, Photos
+from .forms import BiddingForm
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'nftcollec'
 
