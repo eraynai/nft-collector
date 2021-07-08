@@ -1,11 +1,18 @@
 from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from main_app.models import Nft
 from django.template.loader import render_to_string
+import uuid
+import boto3
+from . models import Nft, Bids, Photos
+S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
+BUCKET = 'nftcollec'
 
 
 def home(request):
+    # n = Nft.objects.get(id=13)
+    # cool_cat = n.bids_set.all()
+    # print(cool_cat)
     return render(request, 'about.html')
 
 
@@ -22,9 +29,11 @@ def nfts_index(request):
 
 def nfts_detail(request, nft_id):
     try:
+        # get the cat
         nft = Nft.objects.get(id=nft_id)
-
-        return render(request, 'nfts/detail.html', {'nft': nft})
+        bids = nft.bids_set.all()
+        print('this is bids', bids)
+        return render(request, 'nfts/detail.html', {'nft': nft, 'bids': bids})
     except:
         data_response = render_to_string('404.html')
         return HttpResponseNotFound(data_response)
