@@ -6,7 +6,7 @@ from django.db import models
 class Nft(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
-    price = models.IntegerField()
+    price = models.FloatField()
     category = models.CharField(max_length=100)
 
 
@@ -15,3 +15,6 @@ class Bids(models.Model):
     bid = models.FloatField()
     user = models.CharField(max_length=250)
     nft = models.ForeignKey(Nft, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.bid} on {self.date}'
