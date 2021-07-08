@@ -9,6 +9,9 @@ class Nft(models.Model):
     price = models.FloatField()
     category = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Bids(models.Model):
     date = models.DateField()
@@ -17,4 +20,4 @@ class Bids(models.Model):
     nft = models.ForeignKey(Nft, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.bid} on {self.date}'
+        return f'{self.bid} by {self.user} on {self.date}'
