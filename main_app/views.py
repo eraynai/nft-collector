@@ -35,6 +35,7 @@ def nfts_detail(request, nft_id):
         # bids = nft.bids_set.all()
         # print('this is bids', bids)
         bidding_form = BiddingForm()
+        print(bidding_form)
         return render(request, 'nfts/detail.html', {'nft': nft, 'bidding_form': bidding_form})
     except:
         data_response = render_to_string('404.html')

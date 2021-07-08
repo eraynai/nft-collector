@@ -38,5 +38,13 @@
 </div>
 <a href="/nfts/{{nft.id}}/edit/">Edit</a>
 <a href="/nfts/{{nft.id}}/delete/">Delete</a>
-
+<script>
+	var dateEl = document.getElementById('id_date');
+	M.Datepicker.init(dateEl, {
+		format: 'yyyy-mm-dd',
+		defaultDate: new Date(),
+		setDefaultDate: true,
+		autoClose: true,
+	});
+</script>
 {% endblock %}
