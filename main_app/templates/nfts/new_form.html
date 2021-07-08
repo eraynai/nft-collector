@@ -1,6 +1,6 @@
 {% extends 'base.html' %}{% block content %}
 
-<form method="POST" action="/nfts_submit/">
+<form method="POST" action="/nfts/">
 	{% csrf_token %} Name: <input name="name" /> Description:
 	<input name="description" /> Price: <input name="price" /> Category:
 	<input name="category" />

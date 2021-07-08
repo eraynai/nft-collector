@@ -1,5 +1,5 @@
 from django.http.response import HttpResponseNotFound, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from main_app.models import Nft
 from django.template.loader import render_to_string
@@ -14,9 +14,14 @@ def home(request):
 
 
 def nfts_index(request):
-    nfts = Nft.objects.all()
-    print(nfts)
-    return render(request, 'nfts/index.html', {'nfts': nfts})
+    if(request.method == 'POST'):
+        nft = Nft.objects.create(
+            name=request.POST['name'], description=request.POST['description'], price=request.POST['price'], category=request.POST['category'])
+        return redirect(f'/nfts/{nft.id}')
+    else:
+        nfts = Nft.objects.all()
+        print(nfts)
+        return render(request, 'nfts/index.html', {'nfts': nfts})
 
 
 def nfts_detail(request, nft_id):
