@@ -5,10 +5,6 @@ from main_app.models import Nft
 from django.template.loader import render_to_string
 
 
-def index(request):
-    return HttpResponse('<h1>Hello</h1>')
-
-
 def home(request):
     return render(request, 'about.html')
 
