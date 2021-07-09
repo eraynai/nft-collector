@@ -12,8 +12,8 @@
 		</div>
 	</div>
 	<div class="col s6">
-		<form method="POST">
-			{% csrf_token %} {{bidding_form.as_p}}
+		<form action="" method="POST">
+			{% csrf_token %}
 			<input type="submit" class="btn" value="Add Bid" />
 		</form>
 		<table class="striped">
@@ -25,7 +25,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for bidding in bids %}
+				{% for bidding in nft.bids_set.all %}
 				<tr>
 					<td>{{bidding.user}}</td>
 					<td>{{bidding.date}}</td>

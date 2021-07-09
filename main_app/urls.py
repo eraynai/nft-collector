@@ -9,4 +9,5 @@ urlpatterns = [
     path('nfts/<int:nft_id>/delete/', views.nfts_delete),
     path('nfts/<int:nft_id>/edit/', views.nfts_edit),
     path('nfts/<int:nft_id>/submit_update_form/', views.nfts_update),
+    # path('nfts/<int:nft_id>/add_bid', views.add_bid, name="add_bid"),
 ]

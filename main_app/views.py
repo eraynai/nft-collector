@@ -64,3 +64,12 @@ def nfts_update(request, nft_id):
     nft.price = request.POST['price']
     nft.save()
     return redirect(f'/nfts/{nft.id}')
+
+
+# def add_bid(request, nft_id):
+#     form = BiddingForm(request.POST)
+#     if form.is_valid():
+#         new_bid = form.save(commit=False)
+#         new_bid.nft_id = nft_id
+#         new_bid.save()
+#     return redirect('detail', nft_id=nft_id)
