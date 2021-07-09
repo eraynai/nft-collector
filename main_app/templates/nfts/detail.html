@@ -12,10 +12,11 @@
 		</div>
 	</div>
 	<div class="col s6">
-		<form action="" method="POST">
-			{% csrf_token %}
+		<form action="{% url 'add_bid' nft.id %}" method="POST">
+			{% csrf_token %} {{bidding_form.as_p}}
 			<input type="submit" class="btn" value="Add Bid" />
 		</form>
+
 		<table class="striped">
 			<thead>
 				<tr>

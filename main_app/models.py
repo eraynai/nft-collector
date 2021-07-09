@@ -3,11 +3,20 @@ from django.db import models
 # Create your models here.
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=150)
+    description = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f'{self.name} is {self.description}'
+
+
 class Nft(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
     price = models.FloatField()
     category = models.CharField(max_length=100)
+    categories = models.ManyToManyField(Category)
 
     def __str__(self):
         return f'{self.name}'

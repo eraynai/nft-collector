@@ -11,8 +11,9 @@ BUCKET = 'nftcollec'
 
 
 def home(request):
-    # n = Nft.objects.get(id=13)
-    # cool_cat = n.bids_set.all()
+    # n = Nft.objects.get(id=19)
+    # b = Bids.objects.get(id=8)
+    # cool_cat = n.bids_set.remove(b)
     # print(cool_cat)
     return render(request, 'about.html')
 
@@ -66,10 +67,10 @@ def nfts_update(request, nft_id):
     return redirect(f'/nfts/{nft.id}')
 
 
-# def add_bid(request, nft_id):
-#     form = BiddingForm(request.POST)
-#     if form.is_valid():
-#         new_bid = form.save(commit=False)
-#         new_bid.nft_id = nft_id
-#         new_bid.save()
-#     return redirect('detail', nft_id=nft_id)
+def add_bid(request, nft_id):
+    form = BiddingForm(request.POST)
+    if form.is_valid():
+        new_bid = form.save(commit=False)
+        new_bid.nft_id = nft_id
+        new_bid.save()
+    return redirect('detail', nft_id=nft_id)
