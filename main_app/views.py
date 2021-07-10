@@ -17,6 +17,8 @@ def home(request):
     # b = Bids.objects.get(id=8)
     # cool_cat = n.bids_set.remove(b)
     # print(cool_cat)
+    n = Nft.objects.all()
+    print(n)
     return render(request, 'about.html')
 
 
@@ -24,10 +26,10 @@ def nfts_index(request):
     if(request.method == 'POST'):
         nft = Nft.objects.create(
             name=request.POST['name'], description=request.POST['description'], price=request.POST['price'], category=request.POST['category'])
+        print(nft.id)
         return redirect(f'/nfts/{nft.id}')
     else:
         nfts = Nft.objects.all()
-        print(nfts)
         return render(request, 'nfts/index.html', {'nfts': nfts})
 
 
