@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -9,6 +10,9 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.name} is {self.description}'
+
+    def get_absolute_url(self):
+        return reverse("category_detail", kwargs={"pk": self.pk})
 
 
 class Nft(models.Model):

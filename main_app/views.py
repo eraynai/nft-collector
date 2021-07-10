@@ -2,9 +2,11 @@ from django.http.response import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.template.loader import render_to_string
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 import uuid
 import boto3
-from .models import Nft, Bids, Photos
+from .models import Nft, Bids, Photos, Category
 from .forms import BiddingForm
 S3_BASE_URL = 'https://s3.ca-central-1.amazonaws.com/'
 BUCKET = 'nftcollec'
@@ -74,3 +76,22 @@ def add_bid(request, nft_id):
         new_bid.nft_id = nft_id
         new_bid.save()
     return redirect('detail', nft_id=nft_id)
+
+
+class CategoryCreate(CreateView):
+    model = Category
+    fields = '__all__'
+
+
+class CategoryDetail(DetailView):
+    model = Category
+
+
+class CategoryUpdate(UpdateView):
+    model = Category
+    fields = ['name', 'description']
+
+
+class CategoryDelete(DeleteView):
+    model = Category
+    success_url = '/nfts/'
