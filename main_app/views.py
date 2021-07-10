@@ -23,14 +23,8 @@ def home(request):
 
 
 def nfts_index(request):
-    if(request.method == 'POST'):
-        nft = Nft.objects.create(
-            name=request.POST['name'], description=request.POST['description'], price=request.POST['price'], category=request.POST['category'])
-        print(nft.id)
-        return redirect(f'/nfts/{nft.id}')
-    else:
-        nfts = Nft.objects.all()
-        return render(request, 'nfts/index.html', {'nfts': nfts})
+    nfts = Nft.objects.all()
+    return render(request, 'nfts/index.html', {'nfts': nfts})
 
 
 def nfts_detail(request, nft_id):
@@ -49,19 +43,15 @@ def nfts_detail(request, nft_id):
         return HttpResponseNotFound(data_response)
 
 
-def nfts_new(request):
-    return render(request, 'nfts/new_form.html')
-
-
 def nfts_delete(request, nft_id):
     nft = Nft.objects.get(id=nft_id)
     nft.delete()
     return redirect('/nfts')
 
 
-def nfts_edit(request, nft_id):
-    nft = Nft.objects.get(id=nft_id)
-    return render(request, 'nfts/edit.html', {'nft': nft})
+# def nfts_edit(request, nft_id):
+#     nft = Nft.objects.get(id=nft_id)
+#     return render(request, 'nfts/edit.html', {'nft': nft})
 
 
 def nfts_update(request, nft_id):
@@ -80,6 +70,11 @@ def add_bid(request, nft_id):
         new_bid.nft_id = nft_id
         new_bid.save()
     return redirect('detail', nft_id=nft_id)
+
+
+class NftCreate(CreateView):
+    model = Nft
+    fields = ['name', 'description', 'price', 'category']
 
 
 class CategoryCreate(CreateView):
@@ -102,5 +97,6 @@ class CategoryDelete(DeleteView):
 
 
 def assoc_category(request, nft_id, category_id):
-    Nft.objects.get(id=nft_id).categories.add(category_id)
+    nft = Nft.objects.get(id=nft_id).categories.add(category_id)
+    print(nft)
     return redirect('detail', nft_id=nft_id)

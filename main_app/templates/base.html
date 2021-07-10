@@ -27,10 +27,15 @@
 						</li>
 					</ul>
 					<ul class="right">
-						<li><a href="/">About</a></li>
+						<li><a href="{% url 'home' %}">About</a></li>
+						{% if user.is_authenticated %}
 						<li><a href="{% url 'category_create' %}">Add a Category</a></li>
-						<li><a href="/nfts/new">Add An NFT</a></li>
+						<li><a href="{% url 'nft_create' %}">Add An NFT</a></li>
 						<li><a href="/nfts">View All My NFTs</a></li>
+						<li><a href="{% url 'logout' %}">Logout</a></li>
+						{% else %}
+						<li><a href="{% url 'login' %}">Login</a></li>
+						{% endif %}
 					</ul>
 				</div>
 			</nav>
