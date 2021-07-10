@@ -10,10 +10,12 @@ urlpatterns = [
     path('nfts/<int:nft_id>/edit/', views.nfts_edit),
     path('nfts/<int:nft_id>/submit_update_form/', views.nfts_update),
     path('nfts/<int:nft_id>/add_bid', views.add_bid, name='add_bid'),
+    path('nfts/<int:nft_id>/assoc_category/<int:category_id>/',
+         views.assoc_category, name='assoc_category'),
     path('category/create/', views.CategoryCreate.as_view(), name='category_create'),
     path('category/<int:pk>', views.CategoryDetail.as_view(), name='category_detail'),
     path('category/<int:pk>/update/',
          views.CategoryUpdate.as_view(), name='category_update'),
     path('category/<int:pk>/delete/',
-         views.CategoryDelete.as_view(), name='category_delete')
+         views.CategoryDelete.as_view(), name='category_delete'),
 ]

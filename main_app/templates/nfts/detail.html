@@ -53,6 +53,27 @@
 		<h5>No Categories</h5>
 		{% endif %}
 	</div>
+	<div class="col s6">
+		<h3>Available Categories</h3>
+		{% if categories.count %} {% for category in categories%}
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">{{category.name}}</span>
+			</div>
+			<div class="card-action">
+				<form
+					action="{% url 'assoc_category' nft.id category.id %}"
+					method="POST"
+				>
+					{% csrf_token %}
+					<button type="submit" class="btn">Add</button>
+				</form>
+			</div>
+		</div>
+		{%endfor%} {%else%}
+		<h5>{{nft.name}} Already Has All Categories Available</h5>
+		{%endif%}
+	</div>
 </div>
 <script>
 	var dateEl = document.getElementById('id_date');

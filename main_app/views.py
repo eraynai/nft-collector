@@ -39,9 +39,11 @@ def nfts_detail(request, nft_id):
         nft = Nft.objects.get(id=nft_id)
         # bids = nft.bids_set.all()
         # print('this is bids', bids)
+        categories_nft_doesnt_have = Category.objects.exclude(
+            id__in=nft.categories.all().values_list('id'))
         bidding_form = BiddingForm()
         print(bidding_form)
-        return render(request, 'nfts/detail.html', {'nft': nft, 'bidding_form': bidding_form})
+        return render(request, 'nfts/detail.html', {'nft': nft, 'bidding_form': bidding_form, 'categories': categories_nft_doesnt_have})
     except:
         data_response = render_to_string('404.html')
         return HttpResponseNotFound(data_response)
@@ -97,3 +99,8 @@ class CategoryUpdate(UpdateView):
 class CategoryDelete(DeleteView):
     model = Category
     success_url = '/nfts/'
+
+
+def assoc_category(request, nft_id, category_id):
+    Nft.objects.get(id=nft_id).categories.add(category_id)
+    return redirect('detail', nft_id=nft_id)
