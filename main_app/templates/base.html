@@ -31,7 +31,7 @@
 						{% if user.is_authenticated %}
 						<li><a href="{% url 'category_create' %}">Add a Category</a></li>
 						<li><a href="{% url 'nft_create' %}">Add An NFT</a></li>
-						<li><a href="/nfts">View All My NFTs</a></li>
+						<li><a href="{% url 'index' %}">View All My NFTs</a></li>
 						<li><a href="{% url 'logout' %}">Logout</a></li>
 						{% else %}
 						<li><a href="{% url 'login' %}">Login</a></li>

@@ -13,7 +13,7 @@ class Category(models.Model):
         return f'{self.name} is {self.description}'
 
     def get_absolute_url(self):
-        return reverse("category_detail", kwargs={"pk": self.pk})
+        return reverse('category_detail', kwargs={'pk': self.id})
 
 
 class Nft(models.Model):
@@ -28,7 +28,7 @@ class Nft(models.Model):
         return f'{self.name}'
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs=('nft_id', self.id))
+        return reverse('detail', kwargs={'nft_id': self.id})
 
 
 class Bids(models.Model):

@@ -37,8 +37,8 @@
 		</table>
 	</div>
 </div>
-<a href="/nfts/{{nft.id}}/edit/">Edit</a>
-<a href="/nfts/{{nft.id}}/delete/">Delete</a>
+<a href="{% url 'nft_update' nft.id %}">Edit</a>
+<a href="{% url 'nft_delete' nft.id %}">Delete</a>
 <hr />
 <div class="row">
 	<div class="col s6">
