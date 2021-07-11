@@ -6,6 +6,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
 import boto3
 from .models import Nft, Bids, Photos, Category
@@ -19,11 +21,13 @@ def home(request):
     return render(request, 'about.html')
 
 
+@login_required
 def nfts_index(request):
-    nfts = Nft.objects.all()
+    nfts = Nft.objects.filter(user=request.user)
     return render(request, 'nfts/index.html', {'nfts': nfts})
 
 
+@login_required
 def nfts_detail(request, nft_id):
     try:
         # get the cat
@@ -40,6 +44,7 @@ def nfts_detail(request, nft_id):
         return HttpResponseNotFound(data_response)
 
 
+@login_required
 def add_bid(request, nft_id):
     form = BiddingForm(request.POST)
     if form.is_valid():
@@ -49,7 +54,7 @@ def add_bid(request, nft_id):
     return redirect('detail', nft_id=nft_id)
 
 
-class NftCreate(CreateView):
+class NftCreate(LoginRequiredMixin, CreateView):
     model = Nft
     fields = ['name', 'description', 'price', 'category']
 
@@ -58,38 +63,38 @@ class NftCreate(CreateView):
         return super().form_valid(form)
 
 
-class NftUpdate(UpdateView):
+class NftUpdate(LoginRequiredMixin, UpdateView):
     model = Nft
     fields = ['name', 'description', 'price', 'category']
 
 
-class NftDelete(DeleteView):
+class NftDelete(LoginRequiredMixin, DeleteView):
     model = Nft
     success_url = '/nfts/'
 
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = '__all__'
 
 
-class CategoryDetail(DetailView):
+class CategoryDetail(LoginRequiredMixin, DetailView):
     model = Category
 
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['name', 'description']
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = '/nfts/'
 
 
+@login_required
 def assoc_category(request, nft_id, category_id):
-    nft = Nft.objects.get(id=nft_id).categories.add(category_id)
-    print(nft)
+    Nft.objects.get(id=nft_id).categories.add(category_id)
     return redirect('detail', nft_id=nft_id)
 
 
