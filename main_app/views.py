@@ -4,6 +4,8 @@ from django.http import HttpResponse, Http404
 from django.template.loader import render_to_string
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 import uuid
 import boto3
 from .models import Nft, Bids, Photos, Category
@@ -13,12 +15,7 @@ BUCKET = 'nftcollec'
 
 
 def home(request):
-    # n = Nft.objects.get(id=19)
-    # b = Bids.objects.get(id=8)
-    # cool_cat = n.bids_set.remove(b)
-    # print(cool_cat)
-    # n = Nft.objects.all()
-    # print(n)
+
     return render(request, 'about.html')
 
 
@@ -41,26 +38,6 @@ def nfts_detail(request, nft_id):
     except:
         data_response = render_to_string('404.html')
         return HttpResponseNotFound(data_response)
-
-
-# def nfts_delete(request, nft_id):
-#     nft = Nft.objects.get(id=nft_id)
-#     nft.delete()
-#     return redirect('/nfts')
-
-
-# def nfts_edit(request, nft_id):
-#     nft = Nft.objects.get(id=nft_id)
-#     return render(request, 'nfts/edit.html', {'nft': nft})
-
-
-# def nfts_update(request, nft_id):
-#     nft = Nft.objects.get(id=nft_id)
-#     nft.name = request.POST['name']
-#     nft.description = request.POST['description']
-#     nft.price = request.POST['price']
-#     nft.save()
-#     return redirect(f'/nfts/{nft.id}')
 
 
 def add_bid(request, nft_id):
@@ -114,3 +91,23 @@ def assoc_category(request, nft_id, category_id):
     nft = Nft.objects.get(id=nft_id).categories.add(category_id)
     print(nft)
     return redirect('detail', nft_id=nft_id)
+
+
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        # this is how to create a 'user' form object
+        # that includes the data from the browser
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            # this will add the user to the database
+            user = form.save()
+            # this is how we log a user in via code
+            login(request, user)
+            return redirect('index')
+        else:
+            error_message = 'Invalid sign up - try again'
+    # A bad POST or a GET request, so render signup.html with an empty form
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
